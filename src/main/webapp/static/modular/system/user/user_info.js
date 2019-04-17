@@ -18,13 +18,6 @@ var UserInfoDlg = {
                 }
             }
         },
-        citySel: {
-            validators: {
-                notEmpty: {
-                    message: '部门不能为空'
-                }
-            }
-        },
         password: {
             validators: {
                 notEmpty: {

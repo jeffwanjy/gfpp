@@ -28,6 +28,7 @@ import cn.stylefeng.roses.core.util.SpringContextHolder;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.mysql.cj.protocol.x.Notice;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
@@ -50,7 +51,6 @@ public class ConstantFactory implements IConstantFactory {
     private DictMapper dictMapper = SpringContextHolder.getBean(DictMapper.class);
     private UserMapper userMapper = SpringContextHolder.getBean(UserMapper.class);
     private MenuMapper menuMapper = SpringContextHolder.getBean(MenuMapper.class);
-    private NoticeMapper noticeMapper = SpringContextHolder.getBean(NoticeMapper.class);
 
     public static IConstantFactory me() {
         return SpringContextHolder.getBean("constantFactory");
@@ -222,22 +222,7 @@ public class ConstantFactory implements IConstantFactory {
         }
     }
 
-    /**
-     * 获取通知标题
-     */
-    @Override
-    public String getNoticeTitle(Integer dictId) {
-        if (ToolUtil.isEmpty(dictId)) {
-            return "";
-        } else {
-            Notice notice = noticeMapper.selectById(dictId);
-            if (notice == null) {
-                return "";
-            } else {
-                return notice.getTitle();
-            }
-        }
-    }
+
 
     /**
      * 根据字典名称和字典中的值获取对应的名称

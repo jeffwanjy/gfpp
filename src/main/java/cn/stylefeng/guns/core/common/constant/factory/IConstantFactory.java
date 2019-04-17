@@ -83,10 +83,7 @@ public interface IConstantFactory {
      */
     String getDictName(Integer dictId);
 
-    /**
-     * 获取通知标题
-     */
-    String getNoticeTitle(Integer dictId);
+
 
     /**
      * 根据字典名称和字典中的值获取对应的名称

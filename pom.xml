@@ -10,11 +10,11 @@
     </parent>
 
     <groupId>cn.stylefeng.guns</groupId>
-    <artifactId>guns</artifactId>
+    <artifactId>gfpp</artifactId>
     <version>1.0.0</version>
 
-    <name>guns-admin</name>
-    <description>guns 的spring boot版本</description>
+    <name>gfpp</name>
+    <description>gfpp desc</description>
 
     <packaging>jar</packaging>
 

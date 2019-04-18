@@ -18,28 +18,6 @@ var UserInfoDlg = {
                 }
             }
         },
-        password: {
-            validators: {
-                notEmpty: {
-                    message: '密码不能为空'
-                },
-                identical: {
-                    field: 'rePassword',
-                    message: '两次密码不一致'
-                },
-            }
-        },
-        rePassword: {
-            validators: {
-                notEmpty: {
-                    message: '密码不能为空'
-                },
-                identical: {
-                    field: 'password',
-                    message: '两次密码不一致'
-                },
-            }
-        }
     }
 };
 

@@ -12,21 +12,8 @@ var RolInfoDlg = {
                     message: '用户名不能为空'
                 }
             }
-        },
-        tips: {
-            validators: {
-                notEmpty: {
-                    message: '别名不能为空'
-                }
-            }
-        },
-        pName: {
-            validators: {
-                notEmpty: {
-                    message: '父级名称不能为空'
-                }
-            }
         }
+
     }
 };
 

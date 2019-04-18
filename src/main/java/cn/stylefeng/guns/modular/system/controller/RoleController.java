@@ -135,6 +135,8 @@ public class RoleController extends BaseController {
             throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
         }
         role.setId(null);
+        role.setPid(0);
+        role.setDeptid(24);
         this.roleService.insert(role);
         return SUCCESS_TIP;
     }

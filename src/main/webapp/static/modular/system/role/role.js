@@ -13,9 +13,10 @@ var Role = {
  */
 Role.initColumn = function () {
     var columns = [
-        {field: 'selectItem', radio: true},
+        {field: 'selectItem', radio: false},
         {title: 'id', field: 'id', visible: false, align: 'center', valign: 'middle'},
-        {title: '名称', field: 'name', align: 'center', valign: 'middle', sortable: true}
+        {title: '名称', field: 'name', align: 'center', valign: 'middle', sortable: true},
+        {title: '下属账户数', field: 'orderNum', align: 'center', valign: 'middle', sortable: true}
         ]
     return columns;
 };
@@ -34,6 +35,24 @@ Role.check = function () {
         return true;
     }
 };
+
+
+
+
+/**
+ * 多选－－检查是否选中  删除用
+ */
+Role.checkAll = function () {
+    var selected = $('#' + this.id).bootstrapTable('getSelections');
+    if (selected.length == 0) {
+        Feng.info("请先选中表格中的某一记录！");
+        return false;
+    } else {
+        Role.seItem = selected;
+        return true;
+    }
+};
+
 
 /**
  * 点击添加管理员
@@ -71,20 +90,24 @@ Role.openChangeRole = function () {
  * 删除角色
  */
 Role.delRole = function () {
-    if (this.check()) {
+    if (this.checkAll()) {
 
         var operation = function(){
-            var ajax = new $ax(Feng.ctxPath + "/role/remove", function () {
+            for (var i = 0; i < Role.seItem.length; i++) {
+            var ajax = new $ax(Feng.ctxPath + "/role/removeBatch", function () {
                 Feng.success("删除成功!");
                 Role.table.refresh();
             }, function (data) {
                 Feng.error("删除失败!" + data.responseJSON.message + "!");
             });
-            ajax.set("roleId", Role.seItem.id);
+
+            console.log(Role.seItem[i])
+            ajax.set("roleId",Role.seItem[i].id);
             ajax.start();
+            }
         };
 
-        Feng.confirm("是否删除角色 " + Role.seItem.name + "?",operation);
+        Feng.confirm("是否确认删除 ",operation);
     }
 };
 

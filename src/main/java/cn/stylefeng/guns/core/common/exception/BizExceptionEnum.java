@@ -32,6 +32,8 @@ public enum BizExceptionEnum implements AbstractBaseExceptionEnum {
     ERROR_WRAPPER_FIELD(500, "包装字典属性失败"),
     ERROR_CODE_EMPTY(500, "字典类型不能为空"),
 
+    ROLE_EXISTED(400, "角色已经存在"),
+
     /**
      * 文件上传
      */

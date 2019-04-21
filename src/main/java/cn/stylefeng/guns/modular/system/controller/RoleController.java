@@ -25,6 +25,8 @@ import cn.stylefeng.guns.core.common.exception.BizExceptionEnum;
 import cn.stylefeng.guns.core.common.node.ZTreeNode;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
 import cn.stylefeng.guns.core.util.CacheUtil;
+import cn.stylefeng.guns.modular.system.model.Dict;
+import cn.stylefeng.guns.modular.system.model.Menu;
 import cn.stylefeng.guns.modular.system.model.Role;
 import cn.stylefeng.guns.modular.system.model.User;
 import cn.stylefeng.guns.modular.system.service.IRoleService;
@@ -34,6 +36,7 @@ import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,6 +47,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -120,6 +124,21 @@ public class RoleController extends BaseController {
     @ResponseBody
     public Object list(@RequestParam(required = false) String roleName) {
         List<Map<String, Object>> roles = this.roleService.selectRoles(super.getPara("roleName"));
+       // select count(1) from  `sys_user` where status = 1 and roleid = 1
+
+
+//        for (int i = 0; i <roles.size() ; i++) {
+//
+//            User theUser = this.userService.selectById(userId);
+//
+//        }
+
+
+
+
+
+
+
         return super.warpObject(new RoleWarpper(roles));
     }
 
@@ -134,11 +153,20 @@ public class RoleController extends BaseController {
         if (result.hasErrors()) {
             throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
         }
+
+        Role temp = new Role();
+        temp.setName(role.getName());
+        Role pMenu = this.roleService.selectOne(new EntityWrapper<>(temp));
+
+        if (pMenu != null) {
+            throw new ServiceException(BizExceptionEnum.ROLE_EXISTED);
+        } else {
         role.setId(null);
         role.setPid(0);
         role.setDeptid(24);
         this.roleService.insert(role);
         return SUCCESS_TIP;
+        }
     }
 
     /**
@@ -159,23 +187,25 @@ public class RoleController extends BaseController {
         return SUCCESS_TIP;
     }
 
+
+
+
     /**
      * 删除角色
      */
-    @RequestMapping(value = "/remove")
-    @BussinessLog(value = "删除角色", key = "roleId", dict = RoleDict.class)
+    @RequestMapping(value = "/removeBatch")
+    @BussinessLog(value = "批量删除角色", key = "roleId", dict = RoleDict.class)
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
-    public ResponseData remove(@RequestParam Integer roleId) {
+    public ResponseData removeBatch(@RequestParam Integer roleId) {
+
         if (ToolUtil.isEmpty(roleId)) {
             throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
         }
-
         //不能删除超级管理员角色
         if (roleId.equals(Const.ADMIN_ROLE_ID)) {
             throw new ServiceException(BizExceptionEnum.CANT_DELETE_ADMIN);
         }
-
         //缓存被删除的角色名称
         LogObjectHolder.me().set(ConstantFactory.me().getSingleRoleName(roleId));
 
@@ -183,8 +213,15 @@ public class RoleController extends BaseController {
 
         //删除缓存
         CacheUtil.removeAll(Cache.CONSTANT);
+
         return SUCCESS_TIP;
     }
+
+
+
+
+
+
 
     /**
      * 查看角色

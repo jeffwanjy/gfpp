@@ -92,13 +92,13 @@ public class UserMgrController extends BaseController {
     //@RequiresPermissions("/mgr/role_assign")  //利用shiro自带的权限检查
     @Permission
     @RequestMapping("/role_assign/{userId}")
-    public String roleAssign(@PathVariable Integer userId, Model model) {
+    public String roleAssign(@PathVariable String userId, Model model) {
         if (ToolUtil.isEmpty(userId)) {
             throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
         }
-        User user = this.userService.selectOne(new EntityWrapper<User>().eq("id", userId));
+       // User user = this.userService.selectOne(new EntityWrapper<User>().eq("id", userId));
         model.addAttribute("userId", userId);
-        model.addAttribute("userAccount", user.getAccount());
+       // model.addAttribute("userAccount", user.getAccount());
         return PREFIX + "user_roleassign.html";
     }
 

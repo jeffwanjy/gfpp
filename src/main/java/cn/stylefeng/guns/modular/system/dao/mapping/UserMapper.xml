@@ -74,4 +74,8 @@
 		from sys_user where account = #{account} and status != 3
 	</select>
 
+	<select id="selectCountRoleIdById" resultType="cn.stylefeng.guns.modular.system.res.RoleRes">
+		select roleid , count(1) as 'version' from  `sys_user` where status = 1 and roleid =  #{roleid}
+	</select>
+
 </mapper>

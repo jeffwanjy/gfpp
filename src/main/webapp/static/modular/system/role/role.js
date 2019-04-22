@@ -16,7 +16,7 @@ Role.initColumn = function () {
         {field: 'selectItem', radio: false},
         {title: 'id', field: 'id', visible: false, align: 'center', valign: 'middle'},
         {title: '名称', field: 'name', align: 'center', valign: 'middle', sortable: true},
-        {title: '下属账户数', field: 'orderNum', align: 'center', valign: 'middle', sortable: true}
+        {title: '下属账户数', field: 'version', align: 'center', valign: 'middle', sortable: true}
         ]
     return columns;
 };
@@ -107,7 +107,7 @@ Role.delRole = function () {
             }
         };
 
-        Feng.confirm("是否确认删除 ",operation);
+        Feng.confirm("是否确认删除，删除之后角色对应的权限将不存在",operation);
     }
 };
 

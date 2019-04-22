@@ -16,6 +16,7 @@
 package cn.stylefeng.guns.modular.system.service;
 
 import cn.stylefeng.guns.modular.system.model.User;
+import cn.stylefeng.guns.modular.system.res.RoleRes;
 import cn.stylefeng.roses.core.datascope.DataScope;
 import com.baomidou.mybatisplus.service.IService;
 
@@ -56,5 +57,8 @@ public interface IUserService extends IService<User> {
      * 通过账号获取用户
      */
     User getByAccount(String account);
+
+
+    RoleRes selectCountRoleIdById(String roleid);
 
 }

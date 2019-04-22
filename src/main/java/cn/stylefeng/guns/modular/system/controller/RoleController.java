@@ -29,6 +29,7 @@ import cn.stylefeng.guns.modular.system.model.Dict;
 import cn.stylefeng.guns.modular.system.model.Menu;
 import cn.stylefeng.guns.modular.system.model.Role;
 import cn.stylefeng.guns.modular.system.model.User;
+import cn.stylefeng.guns.modular.system.res.RoleRes;
 import cn.stylefeng.guns.modular.system.service.IRoleService;
 import cn.stylefeng.guns.modular.system.service.IUserService;
 import cn.stylefeng.guns.modular.system.warpper.RoleWarpper;
@@ -37,6 +38,7 @@ import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -127,17 +129,17 @@ public class RoleController extends BaseController {
        // select count(1) from  `sys_user` where status = 1 and roleid = 1
 
 
-//        for (int i = 0; i <roles.size() ; i++) {
-//
-//            User theUser = this.userService.selectById(userId);
-//
-//        }
+        for (int i = 0; i <roles.size() ; i++) {
 
+           String II =  roles.get(i).get("id").toString();
 
-
-
-
-
+            RoleRes res = this.userService.selectCountRoleIdById(roles.get(i).get("id").toString());
+            if (res==null || StringUtils.isBlank(res.getRoleid())){
+                roles.get(i).put("version",0);
+            }else{
+                roles.get(i).put("version",res.getVersion());
+            }
+        }
 
         return super.warpObject(new RoleWarpper(roles));
     }

@@ -15,13 +15,16 @@
  */
 package cn.stylefeng.guns.modular.system.service.impl;
 
+import cn.stylefeng.guns.modular.system.dao.RoleMapper;
 import cn.stylefeng.guns.modular.system.dao.UserMapper;
 import cn.stylefeng.guns.modular.system.model.User;
+import cn.stylefeng.guns.modular.system.res.RoleRes;
 import cn.stylefeng.guns.modular.system.service.IUserService;
 import cn.stylefeng.roses.core.datascope.DataScope;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -32,9 +35,16 @@ import java.util.Map;
  *
  * @author stylefeng123
  * @since 2018-02-22
+ *
+ *
  */
+
+
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
+
+    @Resource
+    private UserMapper userMapper;
 
     @Override
     public int setStatus(Integer userId, int status) {
@@ -59,5 +69,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public User getByAccount(String account) {
         return this.baseMapper.getByAccount(account);
+    }
+
+    @Override
+    public RoleRes selectCountRoleIdById(String roleid) {
+        return userMapper.selectCountRoleIdById(roleid);
     }
 }

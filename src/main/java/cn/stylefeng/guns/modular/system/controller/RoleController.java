@@ -269,9 +269,10 @@ public class RoleController extends BaseController {
      */
     @RequestMapping(value = "/roleTreeListByUserId/{userId}")
     @ResponseBody
-    public List<ZTreeNode> roleTreeListByUserId(@PathVariable Integer userId) {
-        User theUser = this.userService.selectById(userId);
-        String roleid = theUser.getRoleid();
+    public List<ZTreeNode> roleTreeListByUserId(@PathVariable String userId) {
+      //  User theUser = this.userService.selectById(userId);
+      //  String roleid = theUser.getRoleid();
+        String  roleid = null;
         if (ToolUtil.isEmpty(roleid)) {
             return this.roleService.roleTreeList();
         } else {

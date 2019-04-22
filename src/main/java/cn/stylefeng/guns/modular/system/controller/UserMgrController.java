@@ -37,6 +37,7 @@ import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -337,16 +338,23 @@ public class UserMgrController extends BaseController {
     @BussinessLog(value = "分配角色", key = "userId,roleIds", dict = UserDict.class)
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
-    public ResponseData setRole(@RequestParam("userId") Integer userId, @RequestParam("roleIds") String roleIds) {
-        if (ToolUtil.isOneEmpty(userId, roleIds)) {
+    public ResponseData setRole(@RequestParam("userId") String userId, @RequestParam("roleIds") String roleIds) {
+        if (StringUtils.isBlank(userId)) {
             throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
         }
         //不能修改超级管理员
         if (userId.equals(Const.ADMIN_ID)) {
             throw new ServiceException(BizExceptionEnum.CANT_CHANGE_ADMIN);
         }
-        assertAuth(userId);
-        this.userService.setRoles(userId, roleIds);
+
+        String[] posIdArray = userId.split(",");
+        for (int i = 0; i < posIdArray.length; i++) {
+            if (StringUtils.isNotBlank(posIdArray[i])){
+                assertAuth(Integer.valueOf(posIdArray[i]));
+                this.userService.setRoles(Integer.valueOf(posIdArray[i]), roleIds);
+            }
+        }
+
         return SUCCESS_TIP;
     }
 

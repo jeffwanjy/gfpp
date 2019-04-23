@@ -1,5 +1,6 @@
 package cn.stylefeng.guns.modular.system.controller;
 
+import cn.stylefeng.guns.core.util.UnicodeUtil;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,10 +14,10 @@ import cn.stylefeng.guns.modular.system.model.Config;
 import cn.stylefeng.guns.modular.system.service.IConfigService;
 
 /**
- * 上传管理控制器
+ * 配置表控制器
  *
  * @author fengshuonan
- * @Date 2019-04-17 17:10:59
+ * @Date 2019-04-22 16:50:16
  */
 @Controller
 @RequestMapping("/config")
@@ -28,7 +29,7 @@ public class ConfigController extends BaseController {
     private IConfigService configService;
 
     /**
-     * 跳转到上传管理首页
+     * 跳转到配置表首页
      */
     @RequestMapping("")
     public String index() {
@@ -36,7 +37,7 @@ public class ConfigController extends BaseController {
     }
 
     /**
-     * 跳转到添加上传管理
+     * 跳转到添加配置表
      */
     @RequestMapping("/config_add")
     public String configAdd() {
@@ -44,18 +45,19 @@ public class ConfigController extends BaseController {
     }
 
     /**
-     * 跳转到修改上传管理
+     * 跳转到修改配置表
      */
     @RequestMapping("/config_update/{configId}")
     public String configUpdate(@PathVariable Integer configId, Model model) {
         Config config = configService.selectById(configId);
+        config.setOperations(UnicodeUtil.decode(config.getOperations()));
         model.addAttribute("item",config);
         LogObjectHolder.me().set(config);
         return PREFIX + "config_edit.html";
     }
 
     /**
-     * 获取上传管理列表
+     * 获取配置表列表
      */
     @RequestMapping(value = "/list")
     @ResponseBody
@@ -64,17 +66,18 @@ public class ConfigController extends BaseController {
     }
 
     /**
-     * 新增上传管理
+     * 新增配置表
      */
     @RequestMapping(value = "/add")
     @ResponseBody
-    public Object add(Config config) {
+    public Object add(Config config) throws Exception {
+        config.setOperations(UnicodeUtil.encode(config.getOperations()));
         configService.insert(config);
         return SUCCESS_TIP;
     }
 
     /**
-     * 删除上传管理
+     * 删除配置表
      */
     @RequestMapping(value = "/delete")
     @ResponseBody
@@ -84,7 +87,7 @@ public class ConfigController extends BaseController {
     }
 
     /**
-     * 修改上传管理
+     * 修改配置表
      */
     @RequestMapping(value = "/update")
     @ResponseBody
@@ -94,7 +97,7 @@ public class ConfigController extends BaseController {
     }
 
     /**
-     * 上传管理详情
+     * 配置表详情
      */
     @RequestMapping(value = "/detail/{configId}")
     @ResponseBody

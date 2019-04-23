@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
  * 配置表 服务实现类
  * </p>
  *
- * @author Jeff
- * @since 2019-04-17
+ * @author jeff
+ * @since 2019-04-22
  */
 @Service
 public class ConfigServiceImpl extends ServiceImpl<ConfigMapper, Config> implements IConfigService {

@@ -22,11 +22,25 @@ MgrUser.initColumn = function () {
         {title: '角色', field: 'roleName', align: 'center', valign: 'middle', sortable: true},
         {title: '邮箱', field: 'email', align: 'center', valign: 'middle', sortable: true},
         {title: '创建时间', field: 'createtime', align: 'center', valign: 'middle', sortable: true},
-        {title: '状态', field: 'statusName', align: 'center', valign: 'middle', sortable: true}
+        {title: '状态', field: 'statusName', align: 'center', valign: 'middle', sortable: true},
+        {field: 'operate', title: '操作', formatter: operateFormatter }
 
-        ];
+
+];
     return columns;
 };
+
+
+
+
+function operateFormatter(value, row, index) {//赋予的参数
+    return [
+        '<a class="btn active disabled" href=" ">编辑</a >',
+    ].join('');
+}
+
+
+
 
 /**
  * 检查是否选中

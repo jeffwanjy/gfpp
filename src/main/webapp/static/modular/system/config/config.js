@@ -1,5 +1,5 @@
 /**
- * 上传管理管理初始化
+ * 配置表管理初始化
  */
 var Config = {
     id: "ConfigTable",	//表格id
@@ -14,9 +14,12 @@ var Config = {
 Config.initColumn = function () {
     return [
         {field: 'selectItem', radio: true},
-            {title: '主键id', field: 'id', visible: true, align: 'center', valign: 'middle'},
-            {title: '提示', field: 'tips', visible: true, align: 'center', valign: 'middle'},
-            {title: '值', field: 'code', visible: true, align: 'center', valign: 'middle'}
+            {title: '主键id', field: 'id', visible: false, align: 'center', valign: 'middle'},
+            {title: '数据源', field: 'dataSource', visible: true, align: 'center', valign: 'middle'},
+            {title: '关系', field: 'relationship', visible: true, align: 'center', valign: 'middle'},
+            {title: 'sheet', field: 'tableSheet', visible: true, align: 'center', valign: 'middle'},
+            {title: '状态', field: 'status', visible: true, align: 'center', valign: 'middle'},
+            {title: '操作', field: 'operations', visible: true, align: 'center', valign: 'middle'}
     ];
 };
 
@@ -35,12 +38,12 @@ Config.check = function () {
 };
 
 /**
- * 点击添加上传管理
+ * 点击添加配置表
  */
 Config.openAddConfig = function () {
     var index = layer.open({
         type: 2,
-        title: '添加上传管理',
+        title: '添加配置表',
         area: ['800px', '420px'], //宽高
         fix: false, //不固定
         maxmin: true,
@@ -50,13 +53,13 @@ Config.openAddConfig = function () {
 };
 
 /**
- * 打开查看上传管理详情
+ * 打开查看配置表详情
  */
 Config.openConfigDetail = function () {
     if (this.check()) {
         var index = layer.open({
             type: 2,
-            title: '上传管理详情',
+            title: '配置表详情',
             area: ['800px', '420px'], //宽高
             fix: false, //不固定
             maxmin: true,
@@ -67,7 +70,7 @@ Config.openConfigDetail = function () {
 };
 
 /**
- * 删除上传管理
+ * 删除配置表
  */
 Config.delete = function () {
     if (this.check()) {
@@ -83,7 +86,7 @@ Config.delete = function () {
 };
 
 /**
- * 查询上传管理列表
+ * 查询配置表列表
  */
 Config.search = function () {
     var queryData = {};

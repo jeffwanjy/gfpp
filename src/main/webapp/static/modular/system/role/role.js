@@ -16,7 +16,8 @@ Role.initColumn = function () {
         {field: 'selectItem', radio: false},
         {title: 'id', field: 'id', visible: false, align: 'center', valign: 'middle'},
         {title: '名称', field: 'name', align: 'center', valign: 'middle', sortable: true},
-        {title: '下属账户数', field: 'version', align: 'center', valign: 'middle', sortable: true}
+        {title: '下属账户数', field: 'version', align: 'center', valign: 'middle', sortable: true},
+        {align: 'center', toolbar: '#tableBar', title: '操作', minWidth: 280}
         ]
     return columns;
 };

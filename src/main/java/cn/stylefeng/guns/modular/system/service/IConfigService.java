@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.service.IService;
  * 配置表 服务类
  * </p>
  *
- * @author Jeff
- * @since 2019-04-17
+ * @author jeff
+ * @since 2019-04-22
  */
 public interface IConfigService extends IService<Config> {
 

@@ -1,5 +1,5 @@
 /**
- * 初始化上传管理详情对话框
+ * 初始化配置表详情对话框
  */
 var ConfigInfoDlg = {
     configInfoData : {}
@@ -46,8 +46,12 @@ ConfigInfoDlg.close = function() {
 ConfigInfoDlg.collectData = function() {
     this
     .set('id')
-    .set('tips')
-    .set('code');
+    .set('dataSource')
+    .set('relationship')
+    .set('tableSheet')
+    .set('status')
+    .set('operations')
+    .set('version');
 }
 
 /**

@@ -5,13 +5,17 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.system.model.Config">
         <id column="id" property="id" />
-        <result column="tips" property="tips" />
-        <result column="code" property="code" />
+        <result column="data_source" property="dataSource" />
+        <result column="relationship" property="relationship" />
+        <result column="table_sheet" property="tableSheet" />
+        <result column="status" property="status" />
+        <result column="operations" property="operations" />
+        <result column="version" property="version" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, tips, code
+        id, data_source, relationship, table_sheet, status, operations, version
     </sql>
 
 </mapper>

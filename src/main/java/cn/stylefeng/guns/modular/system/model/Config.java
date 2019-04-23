@@ -2,6 +2,7 @@ package cn.stylefeng.guns.modular.system.model;
 
 import com.baomidou.mybatisplus.enums.IdType;
 import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
@@ -11,8 +12,8 @@ import java.io.Serializable;
  * 配置表
  * </p>
  *
- * @author Jeff
- * @since 2019-04-17
+ * @author jeff
+ * @since 2019-04-22
  */
 @TableName("dim_config")
 public class Config extends Model<Config> {
@@ -25,13 +26,31 @@ public class Config extends Model<Config> {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
-     * 提示
+     * 数据源
      */
-    private String tips;
+    @TableField("data_source")
+    private String dataSource;
     /**
-     * 值
+     * 关系
      */
-    private String code;
+    private String relationship;
+    /**
+     * sheet
+     */
+    @TableField("table_sheet")
+    private String tableSheet;
+    /**
+     * 状态
+     */
+    private Integer status;
+    /**
+     * 操作
+     */
+    private String operations;
+    /**
+     * 版本（乐观锁保留字段）
+     */
+    private Integer version;
 
 
     public Integer getId() {
@@ -42,20 +61,52 @@ public class Config extends Model<Config> {
         this.id = id;
     }
 
-    public String getTips() {
-        return tips;
+    public String getDataSource() {
+        return dataSource;
     }
 
-    public void setTips(String tips) {
-        this.tips = tips;
+    public void setDataSource(String dataSource) {
+        this.dataSource = dataSource;
     }
 
-    public String getCode() {
-        return code;
+    public String getRelationship() {
+        return relationship;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setRelationship(String relationship) {
+        this.relationship = relationship;
+    }
+
+    public String getTableSheet() {
+        return tableSheet;
+    }
+
+    public void setTableSheet(String tableSheet) {
+        this.tableSheet = tableSheet;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getOperations() {
+        return operations;
+    }
+
+    public void setOperations(String operations) {
+        this.operations = operations;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
     @Override
@@ -67,8 +118,12 @@ public class Config extends Model<Config> {
     public String toString() {
         return "Config{" +
         ", id=" + id +
-        ", tips=" + tips +
-        ", code=" + code +
+        ", dataSource=" + dataSource +
+        ", relationship=" + relationship +
+        ", tableSheet=" + tableSheet +
+        ", status=" + status +
+        ", operations=" + operations +
+        ", version=" + version +
         "}";
     }
 }
